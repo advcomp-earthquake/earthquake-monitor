@@ -1,0 +1,17 @@
+{
+    plugins: {
+      rest: {
+        http_port:"127.0.0.1:9000"
+      },
+      storage_manager: {
+        storages: {
+          demo: {
+            key_expr: "demo/**",
+            volume: {
+              id: "memory"
+            }
+          }
+        }
+      }
+    }
+}
