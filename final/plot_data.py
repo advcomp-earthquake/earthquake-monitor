@@ -9,7 +9,7 @@ import pandas as pd
 class PlotData:
     __slots__ = '_df', '_start_date', '_end_date',
     _title_size = 30
-    _ticks_axis_size = 20
+    _ticks_axis_size = 18
 
     def __init__(self, df, start_date, end_date):
         self._df = df
@@ -36,17 +36,22 @@ class PlotData:
                 'o', 
                 markersize=5
             )
-            print("Ada")
         else:
             ax.plot(
                 x,
                 y,
             )
-            print("Ga ada")
+        
+        ax.tick_params('x', labelsize=ticks_axis_size, labelrotation=22)
+        ax.tick_params('y', labelsize=ticks_axis_size)
+
         
         ax.set_title(fig_title, fontsize=title_size)
         ax.set_xlabel('Date', fontsize=ticks_axis_size)
         ax.set_ylabel('Magnitude', fontsize=ticks_axis_size)
+
+        fig.tight_layout()
+
         return fig
     
     def run(self):
@@ -57,18 +62,6 @@ class PlotData:
         def home():
             # Generate the figure **without using pyplot**.
             title = 'Earthquake Magnitude Over Time'
-
-            # fig = Figure(figsize=(15, 6))
-            # ax = fig.subplots()
-            # ax.plot(
-            #     self._df['Origin date'], 
-            #     self._df['Magnitude'], 
-            #     'o', 
-            #     markersize=5
-            # )
-            # ax.set_title(title, fontsize=self._title_size)
-            # ax.set_xlabel('Date', fontsize=self._ticks_axis_size)
-            # ax.set_ylabel('Magnitude', fontsize=self._ticks_axis_size)
 
             fig = self.plot_figures(
                 title,
@@ -118,16 +111,6 @@ class PlotData:
             # Generate the figure **without using pyplot**.
             title = 'Highest Earthquake Magnitude per Day Over Time'
 
-            # fig = Figure(figsize=(15, 6))
-            # ax = fig.subplots()
-            # ax.plot(
-            #     max_magnitude_per_day['index'], 
-            #     max_magnitude_per_day['Magnitude'],
-            # )
-            # ax.set_title(title, fontsize=self._title_size)
-            # ax.set_xlabel('Date', fontsize=self._ticks_axis_size)
-            # ax.set_ylabel('Magnitude', fontsize=self._ticks_axis_size)
-
             fig = self.plot_figures(
                 title,
                 max_magnitude_per_day['index'], 
@@ -150,9 +133,6 @@ class PlotData:
             )
 
         app.run(debug=True)
-        # # Main Driver Function 
-        # if __name__ == '__main__':
-        #     # Run the application on the local development server ##
 
 
 
