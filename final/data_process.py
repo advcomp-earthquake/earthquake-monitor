@@ -14,17 +14,16 @@ def preprocess_data(folder_path, start_date, end_date):
 
     # Combine the all the DataFrame in the list
     combined_df = pd.concat(dfs)
-
-    # Rename the column from Orgin date to Origin date
-    combined_df = combined_df.rename(columns={'Orgin date': 'Origin date'})
     
-    # Convert the 'Origin date' and 'Date' columns to datetime format,
+    # Convert the 'Origin date' and
     # convert the 'Magnitude' columns to numeric format,
     # so that the data will be plotted properly
     combined_df['Origin date'] = pd.to_datetime(combined_df['Origin date'])
     combined_df['Magnitude'] = pd.to_numeric(combined_df['Magnitude'])
-    combined_df['Date'] = pd.to_datetime(combined_df['Origin date'].dt.date)
 
+    # Extract 'Date' columns from the origin date
+    combined_df['Date'] = pd.to_datetime(combined_df['Origin date'].dt.date)
+    
     # Extract the year and month from the date
     combined_df['Year'] = combined_df['Date'].dt.year
     combined_df['Month'] = combined_df['Date'].dt.month
@@ -42,7 +41,7 @@ def __open_eq_file(filename):
     # Read the csv into DataFrame
     df = pd.read_csv(filename, header=None, names=[
         'No.',
-        'Orgin date',
+        'Origin date',
         'Longitude(E)',
         'Latitude(N)',
         'Magnitude',
