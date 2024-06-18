@@ -1,4 +1,5 @@
 import base64
+import datetime
 from io import BytesIO
 
 from flask import Flask, render_template
@@ -11,7 +12,12 @@ class PlotData:
     _title_size = 30
     _ticks_axis_size = 18
 
-    def __init__(self, df, start_date, end_date):
+    def __init__(
+        self, 
+        df=pd.DataFrame(), 
+        start_date=datetime.datetime(2024,1,1), 
+        end_date=datetime.datetime(2024,1,1)
+    ):
         self._df = df
         self._start_date = start_date
         self._end_date = end_date
@@ -133,6 +139,13 @@ class PlotData:
             )
 
         app.run(debug=True)
+
+    def change_data(self, new_df, new_start_date, new_end_date):
+        self._df = new_df
+        self._start_date = new_start_date
+        self._end_date = new_end_date
+
+
 
 
 

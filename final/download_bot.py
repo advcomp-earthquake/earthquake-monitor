@@ -10,6 +10,10 @@ from selenium.webdriver.support import expected_conditions as EC
 import time
 
 def download_csv(start_year, start_month, end_year, end_month):
+    start_year = int(start_year)
+    start_month = int(start_month)
+    end_year = int(end_year)
+    end_month = int(end_month)
     options = EdgeOptions()
     prefs = {
         'download.default_directory': 'C:\\Users\\HP\\Documents\\earthquake-monitor\\final\\test_data\\',
@@ -48,8 +52,11 @@ def download_csv(start_year, start_month, end_year, end_month):
             # Click the download button
             csv_button = driver.find_element(By.XPATH, '//a[@title="Export seismic data (Seismic activity.csv)"]')
             csv_button.click()
-            # Wait for the download to complete
-            time.sleep(5)
+
+            if((query_year+1) == (end_year+1)):
+                if((query_month+1) == (end_month+1)):
+                    # Wait for the download to complete
+                    time.sleep(5)
 
     driver.quit()
 
