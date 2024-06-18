@@ -89,7 +89,6 @@ class PlotData:
                 end_date=self._end_date
             )
 
-
         app.run(debug=True)
         # # Main Driver Function 
         # if __name__ == '__main__':
