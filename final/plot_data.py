@@ -14,9 +14,9 @@ class PlotData:
 
     def __init__(
         self, 
-        df=pd.DataFrame(), 
-        start_date=datetime.datetime(2024,1,1), 
-        end_date=datetime.datetime(2024,1,1)
+        df:pd.DataFrame=pd.DataFrame(), 
+        start_date=datetime.datetime(2024,3,1), 
+        end_date=datetime.datetime(2024,3,1)
     ):
         self._df = df
         self._start_date = start_date
@@ -139,11 +139,6 @@ class PlotData:
             )
 
         app.run(debug=True)
-
-    def change_data(self, new_df, new_start_date, new_end_date):
-        self._df = new_df
-        self._start_date = new_start_date
-        self._end_date = new_end_date
 
 
 

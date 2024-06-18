@@ -54,3 +54,6 @@ def __open_eq_file(filename):
     # Delete the first row (column name)
     df = df.drop(index=0).reset_index(drop=True)
     return df
+
+def save_to_csv(output_path, dataframe: pd.DataFrame):
+    dataframe.to_csv(output_path)

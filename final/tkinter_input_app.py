@@ -12,6 +12,7 @@ import time
 import download_bot
 import data_process
 from plot_data import PlotData
+from pandas import DataFrame
 
 # Function to handle button click
 def on_download_click():
@@ -38,26 +39,21 @@ def on_download_click():
     if int(query_end_month) < 1 or int(query_end_month) > 12:
         messagebox.showerror("Invalid Input", "Month should be between 1 and 12.")
         return
-
+    
+    # Call the download_csv method to use Selenium
     download_bot.download_csv(query_start_year, query_start_month, query_end_year, query_end_month)
     messagebox.showinfo("Success", f"CSV for {query_start_month}-{query_start_year} to {query_end_month}-{query_end_year} downloaded successfully.")
     
-    # compile the date to make it easier to transport
-    start_date = datetime.datetime(
-        int(query_start_year), int(query_start_month), int(query_start_day)
-    )
-    end_date = datetime.datetime(
-        int(query_end_year), int(query_end_month), int(query_end_day)
-    )
-
-    # processing the data - pandas
-    folder_path = 'C:\\Users\\HP\\Documents\\earthquake-monitor\\final\\test_data\\'
-    earthquake_data_df = data_process.preprocess_data(folder_path, start_date, end_date)
-
-    # plot the data - matplotlib & flask
-    plot_data = PlotData(earthquake_data_df,start_date,end_date)
-    plot_data.run()
-    # messagebox.showinfo("Success", f"Plotting data can be found at http://127.0.0.1:5000/ and http://127.0.0.1:5000/max-per-day.")
+    # Save the date input to a csv file
+    date_query = DataFrame({
+    'start_year':[query_start_year],
+    'start_month':[query_start_month],
+    'start_day':[query_start_day],
+    'end_year':[query_end_year],
+    'end_month':[query_end_month],
+    'end_day':[query_end_day],
+    })
+    date_query.to_csv('C:\\Users\\HP\\Documents\\earthquake-monitor\\final\\final_data\\date.csv')
 
 # Initialize Tkinter window
 root = tk.Tk()
@@ -118,15 +114,6 @@ end_month_label.pack()
 end_month_spin.pack()
 end_day_label.pack()
 end_day_spin.pack()
-
-# Create labels and entries for month and year
-# tk.Label(root, text="Month (1-12):").pack(pady=5)
-# month_entry = tk.Entry(root)
-# month_entry.pack(pady=5)
-
-# tk.Label(root, text="Year (e.g., 2024):").pack(pady=5)
-# year_entry = tk.Entry(root)
-# year_entry.pack(pady=5)
 
 # Create download button
 download_button = tk.Button(root, text="Download CSV", command=on_download_click)
