@@ -59,6 +59,9 @@ def on_download_click():
 root = tk.Tk()
 root.title("Earthquake Data Downloader")
 
+# Set the window size
+root.geometry("600x600")
+
 # Variables to store selected start and end dates
 start_year_var = tk.StringVar(root)
 start_month_var = tk.StringVar(root)
